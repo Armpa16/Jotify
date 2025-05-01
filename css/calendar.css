@@ -1,0 +1,795 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* ปิดการเลื่อนในแนวนอน */
+    width: 100vw; /* จำกัดความกว้างของหน้าเว็บให้พอดีกับขนาดหน้าจอ */
+}
+header{
+    width: 100%;
+    height: 80px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    background-color: #EFF0F2;
+}
+.logo img{
+    width: 181px;
+    height: 43px;
+}
+.noti-user{
+    display: flex;
+}
+.noti-user i{
+    font-size: 35px;
+    cursor: pointer;
+}
+.head{
+    display: flex;
+    justify-content: space-between;
+    font-size: 34px;
+}
+.head .usename{
+    display: flex;
+}
+.head p{
+    font-size: 20px;
+    font-weight: bold;
+}
+.popup{
+    width: 260px;
+    height: 160px;
+    display: flex;
+}
+.popup form{
+    display: flex;
+    justify-content: flex-end;
+}
+.popup button{
+    width: 100px;
+    height: 40px;
+    color: #BE3144;
+    background-color: white;
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.popup button:hover{
+    color: white;
+    background-color: #BE3144;
+}
+.fa-xmark:hover{
+    color: #CC0000;
+}
+.bar{
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: #D3D6DB;
+    flex-shrink: 0;
+    z-index: 2;
+}
+.nav-link.active  {
+    background-color: #BE3144  !important;
+}
+.text-center{
+    height: 160px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+.add-task-btn {
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    position: relative;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.add-task-btn:hover {
+    background-color: white;
+}
+
+/* ไอคอน + */
+.fa-plus {
+    position: absolute;
+    text-align: center;
+    transition: transform 0.3s ease;
+    font-size: 25px;
+    color: #BE3144;
+}
+/* เมื่อกดให้หมุนเป็น X */
+.add-task-btn.active {
+    transform: rotate(180deg);
+}
+
+.add-task-btn.active .plus {
+    transform: rotate(45deg);
+}
+
+.add-task-btn.active .plus::before {
+    transform: rotate(90deg);
+}
+#editOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 3 !important;
+}
+#profileOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+/* Modal */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 99 !important;
+}
+.modal-content {
+    background: white;
+    padding: 20px 80px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    width: 970px;
+    height: 620px;
+    margin-top: 50px;
+}
+
+.modal-content input {
+    width: 100%;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;;
+}
+h1,h2,h3{
+    font-size: 20px;
+}
+h3{
+    margin-top: 10px;
+}
+.nametask{
+    display: flex;
+    align-items: center;
+}
+input[type="text"] {
+    width: 580px;
+    height: 60px;
+    padding-left: 10px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+}
+input[type="color"] {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden; 
+    cursor: pointer;
+    appearance: none; /*ปิดสไตล์เริ่มต้นของเบราว์เซอร์ */
+}
+/* กำหนดให้ input[type="color"] แสดงสีเต็มวงกลมในเบราว์เซอร์ที่รองรับ */
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%; /* ทำให้สีแสดงเป็นวงกลม */
+}
+input[type="date"] {
+    margin: 0%;
+    width: 160px;
+    height: 60px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+}
+textarea{
+    width: 800px;
+    height: 275px;
+    padding-left: 10px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.fa-file-image {
+    font-size: 30px;
+    cursor: pointer;
+    color: #555;
+    position: absolute;
+    margin-top: -60px;
+    margin-left: 765px;
+}
+.but-add{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.add{
+    width: 150px;
+    height: 40px;
+    color: #518E35;
+    background-color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    border: 0;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.add:hover{
+    transform: scale(1.05);
+    transition: transform 0.30s ease;
+    color: white;
+    background-color: #518E35;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.task_edit{
+    width: 150px;
+    height: 40px;
+    color: #518E35;
+    background-color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    border: 0;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.task_edit:hover{
+    transform: scale(1.05);
+    transition: transform 0.30s ease;
+    color: white;
+    background-color: #518E35;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.cancle{
+    width: 80px;
+    height: 40px;
+    color: #BE3144;
+    background-color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    border: 0;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.cancle:hover{
+    transform: scale(1.05);
+    transition: transform 0.30s ease;
+    color: white;
+    background-color: #BE3144;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.color-picker {
+    display: flex;
+    gap: 10px;
+}
+.color-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s, border 0.2s;
+}
+.color-option:hover,
+.color-option:focus {
+    transform: scale(1.1);
+    border: 2px solid #333;
+}
+.color-option.selected {
+    border: 4px solid black;
+}
+.nav {
+    color: #BE3144;
+    text-decoration: none;
+}
+
+.calendar-header{
+    text-align: center;
+    font-weight: 600;
+    font-size: 30px;
+    color: #BE3144;
+}
+.calendar-button{
+    font-size: 25px;
+    font-weight: normal;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.calendar-button .nav:hover {
+    color: #BE3144;
+    /* transition: 0.3s; */
+    transform: scale(1.10);
+    transition: transform 0.50s ease;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-left: -12px;
+}
+table:hover{
+    transform: scale(1.01);
+    transition: transform 0.20s ease;
+}
+table td:hover{
+    transform: scale(1.10);
+    transition: transform 0.50s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: #BE3144;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 2;
+}
+
+th, td {
+    width: 14%;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background: #BE3144;
+    color: white;
+}
+.table-head{
+    background-color: #D3D6DB!important;
+    text-align: center !important;
+    color: rgb(0, 0, 0) !important;
+    height: 50px;
+}
+/* .today {
+    background: #BE3144 !important;
+    font-weight: bold;
+    color: #ffffff !important;
+} */
+.add-task-btn {
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    position: relative;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.add-task-btn:hover {
+    background-color: white;
+}
+
+/* ไอคอน + */
+.fa-plus {
+    position: absolute;
+    text-align: center;
+    transition: transform 0.3s ease;
+    font-size: 25px;
+    color: #BE3144;
+}
+/* เมื่อกดให้หมุนเป็น X */
+.add-task-btn.active {
+    transform: rotate(180deg);
+}
+
+.add-task-btn.active .plus {
+    transform: rotate(45deg);
+}
+
+.add-task-btn.active .plus::before {
+    transform: rotate(90deg);
+}
+.calendar-text{
+    font-size: 32px;
+    color: #BE3144;
+    font-family: "Poppins", serif;
+    font-weight: 400;
+    font-style: normal;
+    float: left;
+    margin-top: -1100px;
+    margin-left: 600px;
+}
+.Date-number{
+    background-color: red;
+    font-size: 12px;
+}
+.table{
+    background-color: #D3D6DB;
+    height: 500px;
+    margin-left: 2px;
+}
+.right-side-dim{
+    background-color: black;
+    height: 1180px;
+    width: 800px;
+    float: right;
+    margin-top: -1180px;
+    opacity: 50%;
+}
+.today-task-text{
+    font-family: "Poppins", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 32px;
+    color: #BE3144;
+    float: left;
+    margin-top: -360px;
+    margin-left: 350px;
+}
+
+/* แถบปฏิทินที่ซ่อนอยู่ */
+.calendar-container {
+    position: relative;
+    left: -100%; /* ซ่อนออกไปด้านซ้ายทั้งหมด */
+    width: 680px; /* ขนาดเท่ากับ Sidebar */
+    height: 1024px;
+    background: #f8f9fa;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease-in-out; /* เลื่อนเข้าออกจากด้านซ้าย */
+    z-index: 1; /* ให้แถบปฏิทินอยู่ด้านหลังเมื่อซ่อน */
+    padding: 20px;
+    
+}
+/* เมื่อเปิดให้แถบปฏิทินขยายออกมา */
+.calendar-container.open {
+    left: 0; /* ให้ปฏิทินเลื่อนเข้ามา */
+    z-index: 1; /* ให้แถบปฏิทินอยู่ด้านหน้าเมื่อเปิด */
+}
+.calendar-buttom{
+    margin-top: 20px;
+}
+.calendar-buttom span{
+    font-size: 30px;
+    color: #BE3144;
+    font-weight: 500;
+}
+/* โน๊ต */
+.content{
+    margin: 50px 80px;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    z-index: 0;
+    padding-left: 285px;
+    
+}
+.dashboard_note h1, .dashboard_note h2{
+    font-size: 32px;
+    color: #BE3144;
+    font-weight: bold;
+}
+.dashboard_note .note-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.dashboard_note .note-item {
+    width: 310px; 
+    height: 235px;
+    padding: 10px 20px;
+    border: 1px solid #ffffff;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background: #FFFFFF;
+    box-sizing: border-box;
+}
+.dashboard_note .note-item:hover {
+    transform: scale(1.05);
+    transition: transform 0.50s ease;
+}
+
+.dashboard_note{
+    margin-top: 20px;
+}
+
+.dashboard_note .note-footer {
+    font-size: 0.8em;
+    text-align: right;
+    color: #555;
+}
+.note-footer{
+    display: flex;
+    justify-content: space-between;
+    margin-top: -15px;
+}
+.clear {
+    clear: both;
+}
+.note-container{
+    width: 1080px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 คอลัมน์ */
+}
+.note-title{
+    display: flex;
+    justify-content: space-between;
+}
+.task_status{
+    margin-top: 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.note-content{
+    width: 100%;
+    height: 90px;
+    white-space: normal; /* ทำให้ข้อความสามารถหักบรรทัดได้ */
+    word-wrap: break-word; /* หากคำยาวเกินไปจะหักคำเอง */
+    word-break: break-word; /* หากข้อความยาวเกินขอบจะหักคำลงมาที่บรรทัดใหม่ */
+    overflow: hidden; 
+    text-overflow: ellipsis;     
+}
+.note-footer .done{
+    width: 90px;
+    font-size: 15px;
+    color: #FFFFFF;
+    height: 40px;
+    background-color: #518E35;
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.note-footer .done:hover{
+    transform: scale(1.10);
+    transition: transform 0.50s ease;
+}
+.note-footer .edit{
+    width: 40px;
+    font-size: 15px;
+    color: #FFFFFF;
+    height: 40px;
+    background-color: #BE3144;
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.note-footer .edit:hover{
+    transform: scale(1.10);
+    transition: transform 0.50s ease;
+}
+.note-footer .delete{
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #CC0000;
+    color: #FFFFFF;
+    font-size: 15px;
+    border: 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-left: -75px;
+}
+.note-footer .delete:hover{
+    transform: scale(1.10);
+    transition: transform 0.50s ease;
+}
+/* ========= ป้อปอัพลบโน๊ต ========= */
+.custom-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+/* ปุ่ม "ยืนยัน" */
+.custom-confirm-btn {
+    background-color: #e74c3c !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding: 10px 20px !important;
+    font-size: 16px !important;
+}
+/* ปุ่ม "ยกเลิก" */
+.custom-cancel-btn {
+    background-color: #3498db !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding: 10px 20px !important;
+    font-size: 16px !important;
+}
+/* ไอคอน Warning */
+.swal2-icon.swal2-warning {
+    border-color: #CC0000 !important;
+    color: #CC0000 !important;
+}
+.swal2-actions button{
+    border-radius: 8px;
+}
+.swal2-popup{
+    border-radius: 10px;
+    width: 450px;
+}
+/* ================== */
+/* จุดสีปฏิทิน */
+.dots-container {
+    display: flex;
+    justify-content: center;
+    margin-top: -30px;
+}
+.task-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 0 2px;
+}
+
+/* โน๊ต */
+.calendar-buttom .content{
+    margin: 50px 80px;
+    height: auto;
+}
+.calendar-buttom  .dashboard_note{
+    margin-top: 20px;
+}
+.calendar-buttom .note-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.calendar-buttom .note-container .note-item {
+    width: 310px; 
+    height: 235px;
+    padding: 10px 20px;
+    border: 1px solid #ffffff;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background: #FFFFFF;
+    box-sizing: border-box;
+    cursor: default;
+}
+.calendar-buttom .note-container .note-item:hover {
+    transform: scale(1.05);
+    transition: transform 0.50s ease;
+}
+.calendar-buttom .note-container .note-footer {
+    font-size: 0.8em;
+    text-align: right;
+    color: #555;
+}
+.calendar-buttom .note-footer{
+    display: flex;
+    justify-content: space-between;
+    margin-top: -15px;
+}
+.calendar-buttom .clear {
+    clear: both;
+}
+.calendar-buttom .note-container{
+    width: 100%;
+}
+.calendar-buttom .note-title{
+    display: flex;
+    justify-content: space-between;
+}
+.calendar-buttom .task_status{
+    margin-top: 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.calendar-buttom .note-content{
+    width: 100%;
+    height: 90px;
+    white-space: normal; /* ทำให้ข้อความสามารถหักบรรทัดได้ */
+    word-wrap: break-word; /* หากคำยาวเกินไปจะหักคำเอง */
+    word-break: break-word; /* หากข้อความยาวเกินขอบจะหักคำลงมาที่บรรทัดใหม่ */
+    overflow: hidden; 
+    text-overflow: ellipsis;     
+}
+.calendar-buttom .note-footer .done{
+    width: 90px;
+    font-size: 15px;
+    color: #FFFFFF;
+    height: 40px;
+    background-color: #518E35;
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.calendar-buttom .note-footer .done:hover{
+    transform: scale(1.10);
+    transition: transform 0.50s ease;
+}
+.calendar-buttom .note-footer .edit{
+    width: 40px;
+    font-size: 15px;
+    color: #FFFFFF;
+    height: 40px;
+    background-color: #BE3144;
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.calendar-buttom .note-footer .edit:hover{
+    transform: scale(1.10);
+    transition: transform 0.50s ease;
+}
+.calendar-buttom .note-footer .delete{
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #CC0000;
+    color: #FFFFFF;
+    font-size: 15px;
+    border: 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-left: -75px;
+}
+.calendar-buttom .note-footer .delete:hover{
+    transform: scale(1.10);
+    transition: transform 0.50s ease;
+}
+.clickable-date {
+    cursor: pointer;
+    position: relative;
+}
+
+.date-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.active-date {
+    background-color: #BE3144;
+    color: #ffffff;
+}
+#calendarPanel > table > tbody > tr > td.active-date.Date-number.clickable-date {
+    background-color: #BE3144;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.active-date .date-link {
+    color: white; 
+    background-color: #BE3144;
+}
+
+
+.clickable-date:hover:not(.active-date) {
+    background-color: #BE3144;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+
+
+
+
